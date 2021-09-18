@@ -4,7 +4,7 @@
 
 # 使用介绍
 
-1. fart中每个dump出的dex和codeitem的文件名称都是以dex字节size开头，将所有某一个dex的指令bin文件和dex文件放到同一目录，目录以dex size命名；
+1. fart中每个dump出的dex和codeitem的文件名称都是以dex字节size开头，将所有某一个dex的指令bin文件和dex文件放到同一目录(dex字节size开头所有文件一并放入也不影响运行，只要关键文件包含即可，详见fix_dex.sh)，目录以dex size命名；
 2. 运行fix_dex.sh脚本，例如针对给出的例子，运行命令：
 
 `cd */resume_dex`

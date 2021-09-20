@@ -7,5 +7,5 @@ do
   cat $dir/$file >> $dir/${dir}_all.bin
 done
 
-python fart.py -d ${dir}/${dir}_dexfile.dex -i $dir/${dir}_all.bin
-cp ${dir}/${dir}_dexfile.dex-new.dex .
+python fart.py -d ${dir}/${dir}_dexfile.dex -i $dir/${dir}_all.bin -f ${dir}_new.dex
+#cp ${dir}/${dir}_dexfile.dex-new.dex .

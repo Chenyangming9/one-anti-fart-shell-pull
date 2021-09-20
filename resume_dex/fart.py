@@ -7,6 +7,7 @@ import array
 import shutil
 filename = "_data_app_com.example.dexcode-1_base.apk0.dex_722044_0"
 insfilename ="722044_ins.bin"
+fixeddex = ""
 DEX_MAGIC = "dex\n"
 DEX_OPT_MAGIC = "dey\n"
 import base64
@@ -1926,7 +1927,7 @@ class dex_parser:
 		self.m_content = self.m_fd.read()
 
 		# 复制一个dex文件，用于将指令重新填充到新dex文件中
-		self.m_new_dex = filename + "-new.dex"
+		self.m_new_dex = fixeddex#filename + "-new.dex"
 		# shutil.copyfile(filename, self.m_new_dex)
 		self.m_dex_byte_list = list(self.m_content)
 		# end
@@ -2329,24 +2330,30 @@ import getopt
 def init():
 	global filename
 	global insfilename
+	global fixeddex
 	try:
-		opts, args = getopt.getopt(sys.argv[1:], "h:d:i:", ["dumpdexfile=", "insfile="])
+		opts, args = getopt.getopt(sys.argv[1:], "h:d:i:f:", ["dumpdexfile=", "insfile=", "fixeddex="])
 	except getopt.GetoptError:
-		print 'Fart.py -d <dumpdexfile> -i <insfile>'
+		print 'Fart.py -d <dumpdexfile> -i <insfile> [-f <fixeddex>]'
 		sys.exit(2)
 	if len(opts)<=0:
-		print 'Fart.py -d <dumpdexfile> -i <insfile>'
+		print 'Fart.py -d <dumpdexfile> -i <insfile> [-f <fixeddex>]'
 		sys.exit()
 	for opt, arg in opts:
 		if opt in ("-h", "--help"):
-			print 'Fart.py -d <dumpdexfile> -i <insfile>'
+			print 'Fart.py -d <dumpdexfile> -i <insfile> [-f <fixeddex>]'
 			sys.exit()
 		if opt in ("-d", "--dumpdexfile"):
 			filename = arg
 		elif opt in ("-i", "--insfile"):
 			insfilename = arg
+		elif opt in ("-f", "--fixeddex"):
+			fixeddex = arg
+	if fixeddex == "":
+		fixeddex = filename + "-new.dex" #如果没有指定，默认使用该路径
 	print 'dumpdex file:', filename
 	print 'ins file:', insfilename
+	print 'fixeddex file:', fixeddex
 def main():
 	dex = dex_parser(filename)
 if __name__ == "__main__":

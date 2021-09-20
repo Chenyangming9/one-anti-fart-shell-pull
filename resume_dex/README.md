@@ -2,6 +2,8 @@
 
 这里对hanbing大佬的fart.py进行了简单的修改，使得在原先脚本解析完smali基础上，还能生成修复codeitem的dex文件。并且也封装了个sh脚本，方便快速修复dex。fart.py的运行环境是python2。
 
+针对本人遇到的反fart的壳，导入到/sdcard/class_list.txt的文件是 <dex_size>_classlist_execute.txt 文件，来自于fart中另一个脱壳点：extern "C" void dumpDexFileByExecute(ArtMethod * artmethod)，位于art_method.cc文件中。例如，例子中 2594772_classlist_execute.txt 。多个时，合并到一个文件中再导入即可。
+
 # 使用介绍
 
 1. fart中每个dump出的dex和codeitem的文件名称都是以dex字节size开头，将所有某一个dex的指令bin文件和dex文件放到同一目录(dex字节size开头所有文件一并放入也不影响运行，只要关键文件包含即可，详见fix_dex.sh)，目录以dex size命名；
